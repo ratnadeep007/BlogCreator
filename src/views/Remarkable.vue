@@ -1,8 +1,34 @@
 <template>
-  <div class="home">
-    <textarea :value="input" @input="update"></textarea>
+  <!-- <div class="home">
+    <button @click="saveAsMarkdown">Save</button>
+    <textarea id="textArea" :value="input" @input="update"></textarea>
     <div class="output" v-html="compiledMarkdown"></div>
-  </div>
+  </div> -->
+  <v-layout justify-space-around class="mb-2">
+    <v-flex xs6>
+      <v-text-field
+        name="input-7-2"
+        label="Markedown Input"
+        :value="input"
+        @input.native="update"
+        class="input-group--focused"
+        rows="20"
+        auto-grow
+        textarea
+      ></v-text-field>
+    </v-flex>
+    <v-flex xs6>
+      <v-card hover>
+        <v-card-title primary-title>
+          <div>Output (Check output and save as index.md file)</div><br/>
+          <div v-html="compiledMarkdown"></div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn round color="secondary" @click="saveAsMarkdown" raised>Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -10,6 +36,7 @@
 import Remarkable from 'remarkable'
 import _ from 'lodash'
 import * as hljs from 'highlight.js'
+import FileSaver from 'file-saver'
 
 export default {
   name: 'editor',
@@ -26,7 +53,7 @@ Google again and combined features of all three in a single framework, making it
 light weight frontend availible. [Check it out](vuejs.org)
 ## Remarkable
 A similar markdown parser library with features like using html tag inside markdown, typography settings and many more. Here is the example of using image tag inside markdown.
-<img src="https://vuejs.org/images/logo.png">
+<img src="https://vuejs.org/images/logo.png" width="60">
 `
     }
   },
@@ -48,7 +75,15 @@ A similar markdown parser library with features like using html tag inside markd
   methods: {
     update: _.debounce(function (e) {
       this.input = e.target.value
-    }, 300)
+    }, 300),
+    saveAsMarkdown: function() {
+      var textToWrite = this.input;
+      var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain'});
+      var fileNameToSave = "index.md";
+      
+      FileSaver.saveAs(textFileAsBlob, fileNameToSave);
+	    
+    }
   },
   components: {
     
@@ -57,22 +92,9 @@ A similar markdown parser library with features like using html tag inside markd
 </script>
 
 <style scoped>
-  .home {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  textarea {
+  v-text-field {
     height: 100vh;
-    width: 50%;
-  }
-  .output {
-    height: 100vh;
-    width: 50%;
-    margin-left: 6px;
-    border: 1px solid black;
-    padding: 3px;
-  }
+  }  
 </style>
 
 

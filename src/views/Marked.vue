@@ -1,8 +1,34 @@
 <template>
-  <div class="home">
+  <!-- <div class="home">
     <textarea :value="input" @input="update"></textarea>
     <div class="output" v-html="compiledMarkdown"></div>
-  </div>
+  </div> -->
+  <v-layout>
+    <v-flex xs6>
+      <v-text-field
+        name="input-7-2"
+        label="Markedown Input"
+        :value="input"
+        @input.native="update"
+        class="input-group--focused"
+        rows="20"
+        auto-grow
+        textarea
+      ></v-text-field>
+    </v-flex>
+    <v-flex xs6>
+      <v-card hover>
+        <v-card-title primary-title>
+          <div>Output (Check output and save as index.md file)</div><br/>
+          <v-divider></v-divider>
+          <div v-html="compiledMarkdown"></div>
+        </v-card-title>
+        <v-card-actions>
+          <v-btn round color="secondary" @click="saveAsMarkdown" raised>Save</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -56,22 +82,7 @@ Also include code syntax highlighting feature.
 </script>
 
 <style scoped>
-  .home {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-  }
-  textarea {
-    height: 100vh;
-    width: 50%;
-  }
-  .output {
-    height: 100vh;
-    width: 50%;
-    margin-left: 6px;
-    border: 1px solid black;
-    padding: 3px;
-  }
+
 </style>
 
 

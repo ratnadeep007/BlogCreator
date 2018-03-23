@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Editor from './views/Marked.vue'
+import Marked from './views/Marked.vue'
 import Remarkable from './views/Remarkable.vue'
 
 Vue.use(Router)
@@ -8,12 +8,12 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/marked',
       name: 'marked',
-      component: Editor
+      component: Marked
     },
     {
-      path: '/remarkable',
+      path: '/',
       name: 'remarkable',
       component: Remarkable
     }
